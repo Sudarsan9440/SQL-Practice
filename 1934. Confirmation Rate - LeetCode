@@ -9,3 +9,4 @@ FROM
 GROUP BY 
     s.user_id
 
+
