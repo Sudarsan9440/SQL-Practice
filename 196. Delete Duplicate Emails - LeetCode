@@ -1,0 +1,23 @@
+https://leetcode.com/problems/delete-duplicate-emails/description/
+
+# using cross join 
+
+Delete p from Person p , Person q
+where p.email=q.email and p.id>q.id
+
+#subquery
+Delete from person
+where id not in(
+select id from
+(select min(id) as id from person 
+group by email) as min_id)
+
+#using cte and row_number
+
+with rank_list as(
+select id , email,
+row_number() over(partition by email order by id) as r
+from person)
+Delete from 
+person where id not in 
+(select id from rank_list where r=1)
