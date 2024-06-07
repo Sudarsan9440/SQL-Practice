@@ -1,0 +1,10 @@
+https://leetcode.com/problems/second-highest-salary/?envType=study-plan-v2&envId=top-sql-50
+
+with ranks_list as
+(
+    select salary, Dense_Rank() over(order by salary desc ) rn
+    from Employee
+)
+select MAX(case when rn=2 then salary end)
+ as SecondHighestSalary
+from ranks_list
