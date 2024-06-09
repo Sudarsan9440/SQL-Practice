@@ -1,0 +1,18 @@
+https://leetcode.com/problems/consecutive-numbers/description/?envType=study-plan-v2&envId=top-sql-50
+
+WITH cte AS (
+    SELECT 
+        num,
+        id,
+        ROW_NUMBER() OVER (PARTITION BY num ORDER BY id) AS rn
+    FROM 
+        Logs
+)
+SELECT 
+    num AS ConsecutiveNums
+FROM 
+    cte
+GROUP BY 
+    num, id - rn
+HAVING 
+    COUNT(*) >= 3;
