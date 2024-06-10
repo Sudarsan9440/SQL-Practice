@@ -1,0 +1,19 @@
+https://leetcode.com/problems/movie-rating/?envType=study-plan-v2&envId=top-sql-50
+
+(select u.name as results 
+from MovieRating r join Users u
+on r.user_id= u.user_id 
+group by r.user_id
+order by count(*) desc,u.name
+limit 1)
+union all
+(select temp.title as results
+from
+(select m.title,r.movie_id, avg(r.rating) as rating
+from MovieRating r join Movies m
+on r.movie_id=m.movie_id and created_at like "2020-02%"
+group by r.movie_id
+order by rating desc,m.title
+limit 1) as temp
+)
+
