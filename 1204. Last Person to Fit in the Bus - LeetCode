@@ -1,0 +1,12 @@
+https://leetcode.com/problems/last-person-to-fit-in-the-bus/?envType=study-plan-v2&envId=top-sql-50
+
+select t.person_name as person_name
+from(
+select person_name, 
+sum(weight) over(order by turn) rnk
+from Queue 
+) as t
+where rnk<=1000 
+order by rnk desc 
+limit 1
+
