@@ -1,0 +1,26 @@
+https://leetcode.com/problems/product-price-at-a-given-date/?envType=study-plan-v2&envId=top-sql-50
+
+select 
+    product_id, 10 as price 
+from 
+    Products
+group by 
+    product_id
+having 
+    min(change_date) > '2019-08-16'
+union all 
+select 
+    t.product_id, t.new_price as price 
+from 
+    (select 
+        product_id, new_price,
+        rank() over (partition by product_id order by change_date desc) as rnk
+     from 
+        Products
+     where change_date <= '2019-08-16') as t
+where t.rnk = 1
+order by product_id
+
+
+    
+    
