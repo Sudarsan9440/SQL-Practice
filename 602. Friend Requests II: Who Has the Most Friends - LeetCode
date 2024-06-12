@@ -1,0 +1,14 @@
+https://leetcode.com/problems/friend-requests-ii-who-has-the-most-friends/description/?envType=study-plan-v2&envId=top-sql-50
+
+select t.id as id,sum(t.num) as num
+from
+(select requester_id as id,count(*) as num
+From RequestAccepted
+group by id
+union all
+select accepter_id as id,count(*) as num
+From RequestAccepted
+group by id) as t
+group by t.id
+order by num desc 
+limit 1
