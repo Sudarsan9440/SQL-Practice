@@ -1,0 +1,5 @@
+https://leetcode.com/problems/rank-scores/
+
+select score, 
+Dense_Rank() over(order by score desc) "rank" 
+from Scores
