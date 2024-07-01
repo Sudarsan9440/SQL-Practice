@@ -1,0 +1,9 @@
+https://datalemur.com/questions/duplicate-job-listings
+
+SELECT COUNT(DISTINCT company_id) as duplicate_companies
+FROM (
+SELECT company_id,title,count(title) as cnt
+FROM job_listings
+GROUP BY company_id,title
+) as t
+WHERE cnt >=2
